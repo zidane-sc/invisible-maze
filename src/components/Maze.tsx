@@ -148,7 +148,7 @@ const Maze: React.FC<MazeProps> = ({
       onBoundaryHit()
       setPlayerPos(startPos)
 
-      if ((lives - 1) === 0) {
+      if (lives - 1 === 0) {
         setFinished(true)
       }
     } else {
@@ -237,7 +237,10 @@ const Maze: React.FC<MazeProps> = ({
       </div>
 
       <div className="">
-        <Controller onMove={movePlayer} onReset={() => window.location.reload()} />
+        <Controller
+          onMove={movePlayer}
+          onReset={() => window.location.reload()}
+        />
       </div>
     </div>
   )

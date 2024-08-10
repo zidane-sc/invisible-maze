@@ -26,7 +26,7 @@ const Game: React.FC = () => {
     if (params.level) {
       const levelSlug = params.level as string
       const level = LEVELS.find((level) => level.slug === levelSlug)
-  
+
       if (level) {
         setSize(level.size)
         setLevel(level)
@@ -34,7 +34,6 @@ const Game: React.FC = () => {
       }
     }
   }, [params.level])
-  
 
   const handleTimeUp = () => {
     setShowBoundaries(false)
@@ -65,7 +64,7 @@ const Game: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-2xl mb-4">Level "{level.name}"</h1>
+      <h1 className="text-2xl mb-4">{level.name}</h1>
       <Countdown initialTime={countdownTime} onTimeUp={handleTimeUp} />
       <div className="absolute top-4 left-4 p-2 bg-gray-800 text-white rounded flex items-center">
         {Array.from({ length: 3 }).map((_, index) => (
@@ -90,10 +89,12 @@ const Game: React.FC = () => {
         </div>
       )}
 
-      <Link href="/level-selector" className="mt-8 p-3 bg-blue-500 text-white rounded">
+      <Link
+        href="/level-selector"
+        className="mt-8 p-3 bg-blue-500 text-white rounded"
+      >
         Select Level
       </Link>
-
     </div>
   )
 }

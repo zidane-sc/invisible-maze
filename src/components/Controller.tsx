@@ -1,10 +1,16 @@
-import { faArrowDown, faArrowLeft, faArrowRight, faArrowUp, faRefresh } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import {
+  faArrowDown,
+  faArrowLeft,
+  faArrowRight,
+  faArrowUp,
+  faRefresh,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React from 'react'
 
 interface ControllerProps {
-  onMove: (direction: 'up' | 'down' | 'left' | 'right') => void;
-  onReset: () => void;
+  onMove: (direction: 'up' | 'down' | 'left' | 'right') => void
+  onReset: () => void
 }
 
 const Controller: React.FC<ControllerProps> = ({ onMove, onReset }) => {
@@ -25,8 +31,7 @@ const Controller: React.FC<ControllerProps> = ({ onMove, onReset }) => {
           className="bg-gray-700 text-white p-5 rounded-full shadow-lg border-4 border-gray-600 hover:bg-gray-600 active:bg-gray-500 transition"
           onClick={() => onMove('left')}
         >
-        <FontAwesomeIcon icon={faArrowLeft} className="text-2xl" />
-
+          <FontAwesomeIcon icon={faArrowLeft} className="text-2xl" />
         </button>
         <button
           className="bg-blue-700 text-white p-5 rounded-full shadow-lg border-4"
@@ -50,7 +55,7 @@ const Controller: React.FC<ControllerProps> = ({ onMove, onReset }) => {
         <FontAwesomeIcon icon={faArrowDown} className="text-2xl" />
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default Controller;
+export default Controller

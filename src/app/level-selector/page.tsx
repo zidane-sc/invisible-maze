@@ -9,7 +9,7 @@ const LevelSelector: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-2xl mb-4">Pilih Level Kesulitan</h1>
+      <h1 className="text-2xl mb-4">Choose Level</h1>
       <div className="flex flex-wrap gap-4">
         {levels.map((level) => (
           <Link

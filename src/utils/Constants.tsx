@@ -1,11 +1,11 @@
-export const LEVELS =  [
+export const LEVELS = [
   {
     name: 'Ezzz (for babies)',
     slug: 'babies',
     row: 4,
     col: 4,
     size: 4,
-    countdownTime: 5
+    countdownTime: 5,
   },
   {
     name: 'Okay (for beginners)',
@@ -13,7 +13,7 @@ export const LEVELS =  [
     row: 8,
     col: 8,
     size: 8,
-    countdownTime: 20
+    countdownTime: 20,
   },
   {
     name: 'Are you sure? (for experts)',
@@ -21,7 +21,7 @@ export const LEVELS =  [
     row: 13,
     col: 13,
     size: 13,
-    countdownTime: 30
+    countdownTime: 30,
   },
   {
     name: 'You are insane (for insane people)',
@@ -29,6 +29,6 @@ export const LEVELS =  [
     row: 20,
     col: 20,
     size: 20,
-    countdownTime: 50
-  }
+    countdownTime: 50,
+  },
 ]
