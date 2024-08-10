@@ -2,10 +2,10 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { LEVELS } from '@/utils/Constants'
 
 const LevelSelector: React.FC = () => {
-  const levels = [4, 6, 8] // Contoh level kesulitan
+  const levels = LEVELS
 
   return (
     <div className="flex flex-col items-center">
@@ -13,11 +13,11 @@ const LevelSelector: React.FC = () => {
       <div className="flex flex-wrap gap-4">
         {levels.map((level) => (
           <Link
-            key={level}
-            href={`/game/${level}`}
+            key={level.name}
+            href={`/game/${level.slug}`}
             className="p-4 bg-blue-500 text-white rounded"
           >
-            Level {level}
+            {level.name}
           </Link>
         ))}
       </div>

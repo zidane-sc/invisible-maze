@@ -1,3 +1,4 @@
+// src/components/Countdown.tsx
 import React, { useState, useEffect } from 'react'
 
 interface CountdownProps {
@@ -7,6 +8,10 @@ interface CountdownProps {
 
 const Countdown: React.FC<CountdownProps> = ({ initialTime, onTimeUp }) => {
   const [timeLeft, setTimeLeft] = useState<number>(initialTime)
+
+  useEffect(() => {
+    setTimeLeft(initialTime)
+  }, [initialTime])
 
   useEffect(() => {
     if (timeLeft <= 0) return

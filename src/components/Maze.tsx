@@ -4,12 +4,14 @@ import {
   faFlagCheckered,
   faUserAstronaut,
 } from '@fortawesome/free-solid-svg-icons'
+import Controller from './Controller' // Import Controller component
 
 interface MazeProps {
   size: number
   onBoundaryHit: () => void
   onMazeSolved: () => void
   showBoundaries: boolean
+  lives: number
 }
 
 const generateMaze = (size: number) => {
@@ -88,6 +90,7 @@ const Maze: React.FC<MazeProps> = ({
   onBoundaryHit,
   onMazeSolved,
   showBoundaries,
+  lives,
 }) => {
   const [maze, setMaze] = useState<boolean[][]>([])
   const [playerPos, setPlayerPos] = useState<{ row: number; col: number }>({
@@ -102,7 +105,7 @@ const Maze: React.FC<MazeProps> = ({
     row: size - 1,
     col: size - 1,
   })
-  const [solved, setSolved] = useState<boolean>(false)
+  const [finished, setFinished] = useState<boolean>(false)
   const [dangerCells, setDangerCells] = useState<Set<string>>(new Set())
 
   const moveSound = new Audio('/sounds/move.mp3')
@@ -118,26 +121,24 @@ const Maze: React.FC<MazeProps> = ({
     setPlayerPos(start)
   }, [size])
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (solved) return
+  const movePlayer = (direction: 'up' | 'down' | 'left' | 'right') => {
+    if (finished) return
 
     let newRow = playerPos.row
     let newCol = playerPos.col
 
-    switch (e.key) {
-      case 'ArrowUp':
+    switch (direction) {
+      case 'up':
         newRow = Math.max(0, playerPos.row - 1)
         break
-      case 'ArrowDown':
+      case 'down':
         newRow = Math.min(size - 1, playerPos.row + 1)
         break
-      case 'ArrowLeft':
+      case 'left':
         newCol = Math.max(0, playerPos.col - 1)
         break
-      case 'ArrowRight':
+      case 'right':
         newCol = Math.min(size - 1, playerPos.col + 1)
-        break
-      default:
         break
     }
 
@@ -146,11 +147,15 @@ const Maze: React.FC<MazeProps> = ({
       setDangerCells((prev) => new Set(prev).add(`${newRow},${newCol}`))
       onBoundaryHit()
       setPlayerPos(startPos)
+
+      if ((lives - 1) === 0) {
+        setFinished(true)
+      }
     } else {
       moveSound.play()
       setPlayerPos({ row: newRow, col: newCol })
       if (newRow === endPos.row && newCol === endPos.col) {
-        setSolved(true)
+        setFinished(true)
         onMazeSolved()
       }
     }
@@ -162,7 +167,12 @@ const Maze: React.FC<MazeProps> = ({
         className="relative grid"
         style={{ gridTemplateColumns: `repeat(${size}, 1fr)` }}
         tabIndex={0}
-        onKeyDown={handleKeyPress}
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowUp') movePlayer('up')
+          if (e.key === 'ArrowDown') movePlayer('down')
+          if (e.key === 'ArrowLeft') movePlayer('left')
+          if (e.key === 'ArrowRight') movePlayer('right')
+        }}
       >
         {maze.flat().map((cell, index) => {
           const row = Math.floor(index / size)
@@ -192,7 +202,7 @@ const Maze: React.FC<MazeProps> = ({
             />
           )
         })}
-        {(!showBoundaries || solved) && (
+        {(!showBoundaries || finished) && (
           <>
             <div
               className="absolute"
@@ -224,6 +234,10 @@ const Maze: React.FC<MazeProps> = ({
             </div>
           </>
         )}
+      </div>
+
+      <div className="">
+        <Controller onMove={movePlayer} onReset={() => window.location.reload()} />
       </div>
     </div>
   )
